@@ -348,6 +348,44 @@
                 margin: 20px 0;
             }
 
+            /* Speech button styles */
+            .speak-btn {
+                position: absolute;
+                top: 15px;
+                right: 15px;
+                background: rgba(255, 255, 255, 0.2);
+                border: none;
+                border-radius: 50%;
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
+                cursor: pointer;
+                transition: all 0.3s;
+                backdrop-filter: blur(10px);
+            }
+
+            .speak-btn:hover {
+                background: rgba(255, 255, 255, 0.3);
+                transform: scale(1.1);
+            }
+
+            .speak-btn-inline {
+                background: #667eea;
+                color: white;
+                border: none;
+                border-radius: 20px;
+                padding: 8px 12px;
+                font-size: 14px;
+                cursor: pointer;
+                margin-left: 10px;
+                transition: all 0.3s;
+            }
+
+            .speak-btn-inline:hover {
+                background: #764ba2;
+                transform: scale(1.05);
+            }
+
             @media (max-width: 768px) {
                 .container {
                     border-radius: 0;
@@ -405,6 +443,7 @@
                             <div class="flashcard-inner">
                                 <div class="flashcard-front">
                                     <span id="card-front">Bonjour</span>
+                                    <button class="speak-btn" onclick="event.stopPropagation(); speakFrench(document.getElementById('card-front').textContent)">🔊</button>
                                 </div>
                                 <div class="flashcard-back">
                                     <span id="card-back">Hei, huomenta</span>
@@ -467,6 +506,7 @@
                         <div class="question">
                             <div class="question-text">
                                 1. Tapaat ystäväsi aamulla koulussa 🏫☀️
+                                <button class="speak-btn-inline" onclick="speakFrench('Bonjour')">🔊 Kuuntele</button>
                             </div>
                             <input
                                 type="text"
@@ -478,6 +518,7 @@
                         <div class="question">
                             <div class="question-text">
                                 2. Haluat kysyä mitä kaverillesi kuuluu 😊
+                                <button class="speak-btn-inline" onclick="speakFrench('Ça va ?')">🔊 Kuuntele</button>
                             </div>
                             <input
                                 type="text"
@@ -489,6 +530,7 @@
                         <div class="question">
                             <div class="question-text">
                                 3. Sanot opettajalle näkemiin 👋
+                                <button class="speak-btn-inline" onclick="speakFrench('Au revoir')">🔊 Kuuntele</button>
                             </div>
                             <input
                                 type="text"
@@ -501,6 +543,7 @@
                             <div class="question-text">
                                 4. Tapaat parhaan ystäväsi ja sanot rennosti
                                 "moi!" 🤗
+                                <button class="speak-btn-inline" onclick="speakFrench('Salut')">🔊 Kuuntele</button>
                             </div>
                             <input
                                 type="text"
@@ -513,6 +556,7 @@
                             <div class="question-text">
                                 5. Lähdet harjoituksista - "nähdään myöhemmin!"
                                 ⚽
+                                <button class="speak-btn-inline" onclick="speakFrench('À plus tard !')">🔊 Kuuntele</button>
                             </div>
                             <input
                                 type="text"
@@ -525,6 +569,7 @@
                             <div class="question-text">
                                 6. Kaveri kysyy "Ça va?" - vastaat että kuuluu
                                 hyvää ✨
+                                <button class="speak-btn-inline" onclick="speakFrench('Ça va')">🔊 Kuuntele</button>
                             </div>
                             <input
                                 type="text"
@@ -551,6 +596,7 @@
                         <div class="question">
                             <div class="question-text">
                                 Marie: ________! (Hei, huomenta)
+                                <button class="speak-btn-inline" onclick="speakFrench('Bonjour')">🔊 Kuuntele</button>
                             </div>
                             <input
                                 type="text"
@@ -561,6 +607,7 @@
                         <div class="question">
                             <div class="question-text">
                                 Sinä: Bonjour Marie! ________? (Mitä kuuluu?)
+                                <button class="speak-btn-inline" onclick="speakFrench('Ça va ?')">🔊 Kuuntele</button>
                             </div>
                             <input
                                 type="text"
@@ -571,6 +618,7 @@
                         <div class="question">
                             <div class="question-text">
                                 Marie: ________, merci! (Kuuluu hyvää)
+                                <button class="speak-btn-inline" onclick="speakFrench('Ça va')">🔊 Kuuntele</button>
                             </div>
                             <input
                                 type="text"
@@ -585,6 +633,7 @@
                         <div class="question">
                             <div class="question-text">
                                 Sinä: Salut! ________? (Mikä sinun nimesi on?)
+                                <button class="speak-btn-inline" onclick="speakFrench('Tu t\'appelles comment ?')">🔊 Kuuntele</button>
                             </div>
                             <input
                                 type="text"
@@ -595,6 +644,7 @@
                         <div class="question">
                             <div class="question-text">
                                 Sinä: ________ [oma nimesi]. (Minä olen...)
+                                <button class="speak-btn-inline" onclick="speakFrench('Je suis')">🔊 Kuuntele</button>
                             </div>
                             <input
                                 type="text"
@@ -609,6 +659,7 @@
                         <div class="question">
                             <div class="question-text">
                                 Opettaja: ________, les enfants! (Näkemiin)
+                                <button class="speak-btn-inline" onclick="speakFrench('Au revoir')">🔊 Kuuntele</button>
                             </div>
                             <input
                                 type="text"
@@ -619,6 +670,7 @@
                         <div class="question">
                             <div class="question-text">
                                 Sinä: ________! (Nähdään pian!)
+                                <button class="speak-btn-inline" onclick="speakFrench('À bientôt !')">🔊 Kuuntele</button>
                             </div>
                             <input
                                 type="text"
@@ -640,6 +692,44 @@
         </div>
 
         <script>
+            // Speech synthesis setup
+            let speech = null;
+            
+            function initSpeech() {
+                if ('speechSynthesis' in window) {
+                    speech = window.speechSynthesis;
+                    return true;
+                }
+                return false;
+            }
+            
+            function speakFrench(text) {
+                if (!speech) return;
+                
+                // Stop any ongoing speech
+                speech.cancel();
+                
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'fr-FR';
+                utterance.rate = 0.8;
+                utterance.pitch = 1;
+                utterance.volume = 1;
+                
+                // Try to find a French voice
+                const voices = speech.getVoices();
+                const frenchVoice = voices.find(voice => 
+                    voice.lang.startsWith('fr') || 
+                    voice.name.toLowerCase().includes('french') ||
+                    voice.name.toLowerCase().includes('français')
+                );
+                
+                if (frenchVoice) {
+                    utterance.voice = frenchVoice;
+                }
+                
+                speech.speak(utterance);
+            }
+
             // Flashcard data
             const flashcards = [
                 { front: "Bonjour", back: "Hei, huomenta" },
@@ -735,7 +825,7 @@
                 matchingPairs.forEach((pair, index) => {
                     const frenchDiv = document.createElement("div");
                     frenchDiv.className = "matching-item";
-                    frenchDiv.textContent = pair.french;
+                    frenchDiv.innerHTML = `${pair.french} <button class="speak-btn-inline" onclick="event.stopPropagation(); speakFrench('${pair.french}')">🔊</button>`;
                     frenchDiv.dataset.type = "french";
                     frenchDiv.dataset.index = index;
                     frenchDiv.onclick = () => selectFrench(frenchDiv, index);
@@ -907,6 +997,7 @@
             window.onload = function () {
                 updateCard();
                 initMatching();
+                initSpeech();
             };
         </script>
     </body>
