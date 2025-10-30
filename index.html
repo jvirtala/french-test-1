@@ -845,18 +845,30 @@
 
             // Flashcard functions
             function updateCard() {
-                document.getElementById("card-front").textContent =
-                    flashcards[currentCard].front;
-                document.getElementById("card-back").textContent =
-                    flashcards[currentCard].back;
-                document.getElementById("card-counter").textContent =
-                    `${currentCard + 1} / ${flashcards.length}`;
-
+                // If card is flipped, first flip it back, then update content after animation
                 if (isFlipped) {
                     document
                         .querySelector(".flashcard")
                         .classList.remove("flipped");
                     isFlipped = false;
+                    
+                    // Wait for flip animation to complete before updating content
+                    setTimeout(() => {
+                        document.getElementById("card-front").textContent =
+                            flashcards[currentCard].front;
+                        document.getElementById("card-back").textContent =
+                            flashcards[currentCard].back;
+                        document.getElementById("card-counter").textContent =
+                            `${currentCard + 1} / ${flashcards.length}`;
+                    }, 300); // Match the CSS transition duration (0.6s / 2 = 0.3s for half flip)
+                } else {
+                    // If not flipped, update immediately
+                    document.getElementById("card-front").textContent =
+                        flashcards[currentCard].front;
+                    document.getElementById("card-back").textContent =
+                        flashcards[currentCard].back;
+                    document.getElementById("card-counter").textContent =
+                        `${currentCard + 1} / ${flashcards.length}`;
                 }
             }
 
