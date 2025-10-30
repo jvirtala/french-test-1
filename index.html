@@ -518,7 +518,7 @@
                         </p>
 
                         <div class="score" id="matching-score">
-                            Pisteet: 0 / 8
+                            Pisteet: 0 / 12
                         </div>
 
                         <div class="matching-container" id="matching-container">
@@ -607,6 +607,28 @@
                             />
                         </div>
 
+                        <div class="question">
+                            <div class="question-text">
+                                7. Haluat kertoa nimesi uudelle kaverille 👋
+                            </div>
+                            <input
+                                type="text"
+                                id="sit7"
+                                placeholder="Kirjoita ranskan sana..."
+                            />
+                        </div>
+
+                        <div class="question">
+                            <div class="question-text">
+                                8. Kysyt vastavuoroisesti "entä sinä?" 🤔
+                            </div>
+                            <input
+                                type="text"
+                                id="sit8"
+                                placeholder="Kirjoita ranskan sana..."
+                            />
+                        </div>
+
                         <button class="check-btn" onclick="checkSituations()">
                             Tarkista vastaukset
                         </button>
@@ -668,11 +690,44 @@
                         </div>
                         <div class="question">
                             <div class="question-text">
-                                Sinä: ________ [oma nimesi]. (Minä olen...)
+                                Uusi ystävä: Je m'appelle Marie. ________? (Entä
+                                sinä?)
                             </div>
                             <input
                                 type="text"
                                 id="conv5"
+                                placeholder="Ranskan sana..."
+                            />
+                        </div>
+                        <div class="question">
+                            <div class="question-text">
+                                Sinä: ________ [oma nimesi]. (Minun nimeni
+                                on...)
+                            </div>
+                            <input
+                                type="text"
+                                id="conv6new"
+                                placeholder="Ranskan sana..."
+                            />
+                        </div>
+                        <div class="question">
+                            <div class="question-text">
+                                Marie: Mukava tutustua! ________ opiskelija.
+                                (Minä olen...)
+                            </div>
+                            <input
+                                type="text"
+                                id="conv6b"
+                                placeholder="Ranskan sana..."
+                            />
+                        </div>
+                        <div class="question">
+                            <div class="question-text">
+                                Sinä: ________ myös opiskelija! (Sinä olet...)
+                            </div>
+                            <input
+                                type="text"
+                                id="conv6c"
                                 placeholder="Ranskan sana..."
                             />
                         </div>
@@ -686,7 +741,7 @@
                             </div>
                             <input
                                 type="text"
-                                id="conv6"
+                                id="conv7"
                                 placeholder="Ranskan sana..."
                             />
                         </div>
@@ -696,7 +751,7 @@
                             </div>
                             <input
                                 type="text"
-                                id="conv7"
+                                id="conv8"
                                 placeholder="Ranskan sana..."
                             />
                         </div>
@@ -733,7 +788,7 @@
 
                 const utterance = new SpeechSynthesisUtterance(text);
                 utterance.lang = "fr-FR";
-                utterance.rate = 0.8;
+                utterance.rate = 0.5;
                 utterance.pitch = 1;
                 utterance.volume = 1;
 
@@ -755,13 +810,15 @@
 
             // Flashcard data
             const flashcards = [
-                { front: "Bonjour", back: "Hei, huomenta" },
+                { front: "Bonjour", back: "Huomenta, hyvää päivää" },
                 { front: "Salut", back: "Moi, hei" },
                 { front: "Ça va ?", back: "Mitä kuuluu?" },
                 { front: "Ça va", back: "Kuuluu hyvää" },
-                { front: "À plus tard !", back: "Nähdään myöhemmin!" },
+                { front: "À plus tard !", back: "Nähdään sitten (myöhemmin)!" },
                 { front: "À bientôt !", back: "Nähdään pian!" },
                 { front: "Au revoir", back: "Näkemiin" },
+                { front: "Je m'appelle", back: "Minun nimeni on" },
+                { front: "Et toi?", back: "Entä sinä?" },
                 { front: "Je suis", back: "Minä olen" },
                 {
                     front: "Tu t'appelles comment ?",
@@ -826,11 +883,21 @@
                 { french: "Bonjour", finnish: "Hei, huomenta" },
                 { french: "Salut", finnish: "Moi, hei" },
                 { french: "Ça va ?", finnish: "Mitä kuuluu?" },
+                { french: "Ça va", finnish: "Kuuluu hyvää" },
+                {
+                    french: "À plus tard !",
+                    finnish: "Nähdään sitten (myöhemmin)",
+                },
+                {
+                    french: "Tu t'appelles comment ?",
+                    finnish: "Mikä sinun nimesi on?",
+                },
                 { french: "Au revoir", finnish: "Näkemiin" },
                 { french: "Je suis", finnish: "Minä olen" },
                 { french: "À bientôt !", finnish: "Nähdään pian!" },
+                { french: "Je m'appelle", finnish: "Minun nimeni on" },
+                { french: "Et toi?", finnish: "Entä sinä?" },
                 { french: "Tu es", finnish: "Sinä olet" },
-                { french: "À plus tard !", finnish: "Nähdään myöhemmin!" },
             ];
 
             let selectedFrench = null;
@@ -848,7 +915,7 @@
                 matchingPairs.forEach((pair, index) => {
                     const frenchDiv = document.createElement("div");
                     frenchDiv.className = "matching-item";
-                    frenchDiv.innerHTML = `${pair.french} <button class="speak-btn-inline" onclick="event.stopPropagation(); speakFrench('${pair.french}')">🔊</button>`;
+                    frenchDiv.innerHTML = `${pair.french} <button class="speak-btn-inline" data-text="${pair.french}" onclick="event.stopPropagation(); speakFrench(this.dataset.text)">🔊</button>`;
                     frenchDiv.dataset.type = "french";
                     frenchDiv.dataset.index = index;
                     frenchDiv.onclick = () => selectFrench(frenchDiv, index);
@@ -897,9 +964,9 @@
                     matchedCount++;
 
                     document.getElementById("matching-score").textContent =
-                        `Pisteet: ${matchedCount} / 8`;
+                        `Pisteet: ${matchedCount} / ${matchingPairs.length}`;
 
-                    if (matchedCount === 8) {
+                    if (matchedCount === matchingPairs.length) {
                         setTimeout(() => {
                             alert("🎉 Hienoa! Sait kaikki oikein!");
                         }, 300);
@@ -925,7 +992,7 @@
                 matchedCount = 0;
                 matchedPairs.clear();
                 document.getElementById("matching-score").textContent =
-                    "Pisteet: 0 / 8";
+                    `Pisteet: 0 / ${matchingPairs.length}`;
                 initMatching();
             }
 
@@ -937,6 +1004,8 @@
                 sit4: ["salut"],
                 sit5: ["à plus tard", "à plus tard!"],
                 sit6: ["ça va"],
+                sit7: ["je m'appelle"],
+                sit8: ["et toi", "et toi?"],
             };
 
             function normalizeAnswer(answer) {
@@ -945,7 +1014,7 @@
 
             function checkSituations() {
                 let correct = 0;
-                const total = 6;
+                const total = 8;
 
                 for (let i = 1; i <= total; i++) {
                     const input = document.getElementById(`sit${i}`);
@@ -974,35 +1043,53 @@
             // Conversations exercise
             const conversationsAnswers = {
                 conv1: ["bonjour"],
-                conv2: ["ça va", "ça va?"],
+                conv2: ["ça va?"],
                 conv3: ["ça va"],
                 conv4: [
                     "tu t'appelles comment",
                     "tu t'appelles comment?",
                     "tu t'appelles comment ?",
                 ],
-                conv5: ["je suis"],
-                conv6: ["au revoir"],
-                conv7: ["à bientôt", "à bientôt!"],
+                conv5: ["et toi", "et toi?"],
+                conv6new: ["je m'appelle"],
+                conv6b: ["je suis"],
+                conv6c: ["tu es"],
+                conv7: ["au revoir"],
+                conv8: ["à bientôt", "à bientôt!"],
             };
 
             function checkConversations() {
                 let correct = 0;
-                const total = 7;
+                const total = 10;
 
-                for (let i = 1; i <= total; i++) {
-                    const input = document.getElementById(`conv${i}`);
-                    const userAnswer = normalizeAnswer(input.value);
-                    const correctAnswers =
-                        conversationsAnswers[`conv${i}`].map(normalizeAnswer);
+                const convIds = [
+                    "conv1",
+                    "conv2",
+                    "conv3",
+                    "conv4",
+                    "conv5",
+                    "conv6new",
+                    "conv6b",
+                    "conv6c",
+                    "conv7",
+                    "conv8",
+                ];
 
-                    if (correctAnswers.includes(userAnswer)) {
-                        input.className = "correct";
-                        correct++;
-                    } else {
-                        input.className = "incorrect";
+                convIds.forEach((convId) => {
+                    const input = document.getElementById(convId);
+                    if (input && conversationsAnswers[convId]) {
+                        const userAnswer = normalizeAnswer(input.value);
+                        const correctAnswers =
+                            conversationsAnswers[convId].map(normalizeAnswer);
+
+                        if (correctAnswers.includes(userAnswer)) {
+                            input.className = "correct";
+                            correct++;
+                        } else {
+                            input.className = "incorrect";
+                        }
                     }
-                }
+                });
 
                 const feedback = document.getElementById(
                     "conversations-feedback",
